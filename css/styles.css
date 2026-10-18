@@ -141,6 +141,12 @@ a {
   will-change: transform;
 }
 
+/* oversized so pointer drift and the pushed-back Z never expose the edges */
+.layer--film,
+.layer--scrim {
+  inset: -12%;
+}
+
 .layer--film {
   background: radial-gradient(120% 90% at 70% 20%, #1f6e43 0%, #111a16 55%, #0f1512 100%);
 }
@@ -165,8 +171,9 @@ a {
 }
 
 .layer--back-glass {
-  inset: auto -10% 12% 30%;
-  height: 52%;
+  /* low glass slab over the court floor, clear of the paddle and ball */
+  inset: auto -10% -14% 46%;
+  height: 26%;
   border-radius: 40px;
   transform: translateZ(-120px);
 }
