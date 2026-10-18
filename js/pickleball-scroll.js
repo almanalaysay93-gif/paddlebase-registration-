@@ -30,7 +30,7 @@ if (stage && canvas) {
       if (player) player.renderAt(current);
       stage.style.transform = 'translate3d(' + (-current * 64).toFixed(1) + 'px,' +
         (-current * 92).toFixed(1) + 'px,0) scale(' + (1 + current * 0.16).toFixed(3) + ')';
-      stage.style.opacity = String(1 - current * 0.55);
+      stage.style.opacity = String(Math.max(0.18, 1 - current * 1.8));
       document.documentElement.style.setProperty('--image-y',
         (window.innerWidth <= 700 ? 52 + current * 14 : 68 + current * 20).toFixed(1) + '%');
       frame = current === target ? 0 : requestAnimationFrame(render);
