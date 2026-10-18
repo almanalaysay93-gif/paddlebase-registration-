@@ -181,7 +181,8 @@
     if (!raf) raf = requestAnimationFrame(render);
   }
 
-  if (!reduceMotion) {
+  // The background scene is the event's look, so parallax runs regardless of reduced motion.
+  {
     window.addEventListener('pointermove', function (e) {
       if (!finePointer) return;
       pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
@@ -197,7 +198,7 @@
 
   // ---------- Card tilt (fine pointer only) ----------
 
-  if (!reduceMotion && finePointer) {
+  if (finePointer) {
     Array.prototype.forEach.call(document.querySelectorAll('[data-tilt]'), function (card) {
       card.addEventListener('pointermove', function (e) {
         var r = card.getBoundingClientRect();

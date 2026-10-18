@@ -639,12 +639,6 @@ main {
   html {
     scroll-behavior: auto;
   }
-  .bg-video {
-    display: none;
-  }
-  .layer--film {
-    background-image: none;
-  }
   .btn--lime:hover {
     transform: none;
   }
