@@ -181,8 +181,7 @@
     if (!raf) raf = requestAnimationFrame(render);
   }
 
-  // The background scene is the event's look, so parallax runs regardless of reduced motion.
-  {
+  if (!reduceMotion) {
     window.addEventListener('pointermove', function (e) {
       if (!finePointer) return;
       pointer.x = (e.clientX / window.innerWidth) * 2 - 1;

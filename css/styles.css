@@ -148,34 +148,77 @@ a {
 }
 
 .layer--film {
-  background: radial-gradient(120% 90% at 70% 20%, #1f6e43 0%, #111a16 55%, #0f1512 100%);
+  background: #315b5b;
 }
 
-.bg-video {
+.bg-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center var(--image-y, 68%);
 }
 
 .layer--scrim {
   background:
-    radial-gradient(120% 90% at 50% 40%, transparent 40%, rgba(15, 21, 18, 0.5) 100%),
-    linear-gradient(to bottom, rgba(17, 26, 22, 0.3) 0%, rgba(17, 26, 22, 0.14) 50%, rgba(17, 26, 22, 0.7) 100%);
+    linear-gradient(90deg, rgba(7, 23, 24, 0.9) 0%, rgba(7, 23, 24, 0.73) 38%, rgba(7, 23, 24, 0.08) 100%),
+    linear-gradient(0deg, rgba(7, 23, 24, 0.7), transparent 55%);
 }
 
-.layer--court {
+.pickleball-stage {
+  position: absolute;
+  right: clamp(-28px, 3vw, 72px);
+  top: 27%;
+  width: clamp(230px, 34vw, 490px);
+  aspect-ratio: 1;
+  z-index: 2;
+  filter: drop-shadow(0 28px 32px rgba(5, 22, 15, 0.5));
+  will-change: transform, opacity;
+}
+
+.pickleball-stage canvas {
+  position: absolute;
   width: 100%;
   height: 100%;
-  /* the background video now draws the court, net, paddle and ball */
+  display: block;
+}
+
+.pickleball-stage canvas[hidden] {
   display: none;
 }
 
-.layer--back-glass {
-  /* low glass slab over the court floor, clear of the paddle and ball */
-  inset: auto -10% -14% 46%;
-  height: 26%;
-  border-radius: 40px;
-  transform: translateZ(-120px);
+.pickleball-fallback {
+  position: absolute;
+  inset: 14%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 31%, #627a0a 0 3%, transparent 3.5%),
+    radial-gradient(circle at 68% 28%, #627a0a 0 3.5%, transparent 4%),
+    radial-gradient(circle at 50% 53%, #627a0a 0 4%, transparent 4.5%),
+    radial-gradient(circle at 24% 65%, #627a0a 0 3%, transparent 3.5%),
+    radial-gradient(circle at 74% 68%, #627a0a 0 3%, transparent 3.5%),
+    radial-gradient(circle at 32% 24%, #faff93 0%, #d8f530 47%, #829d12 100%);
+  box-shadow: inset -24px -28px 34px rgba(50, 79, 4, 0.28);
+}
+
+.pickleball-stage.is-ready .pickleball-fallback {
+  opacity: 0;
+}
+
+@media (max-width: 700px) {
+  .bg-image {
+    object-position: center var(--image-y, 52%);
+  }
+
+  .layer--scrim {
+    background:
+      linear-gradient(180deg, rgba(8, 24, 22, 0.23) 0%, rgba(8, 24, 22, 0.78) 37%, rgba(8, 24, 22, 0.88) 100%);
+  }
+
+  .pickleball-stage {
+    width: clamp(165px, 47vw, 260px);
+    right: -5%;
+    top: 13%;
+  }
 }
 
 /* ---------- Typography ---------- */
@@ -238,6 +281,11 @@ main {
   inset: auto;
   max-width: 880px;
   transform: none;
+}
+
+.hero__content .display-xl,
+.hero__content .lead {
+  text-shadow: 0 3px 20px rgba(3, 18, 19, 0.45);
 }
 
 .hero__content > * {
@@ -640,7 +688,7 @@ main {
   }
 }
 
-/* ---------- Reduced motion: no parallax, no transitions, no video ---------- */
+/* ---------- Reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -655,5 +703,9 @@ main {
   .card,
   .site-header {
     transition: none;
+  }
+
+  .pickleball-stage {
+    will-change: auto;
   }
 }

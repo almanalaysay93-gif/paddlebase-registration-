@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=4" />
+  <link rel="stylesheet" href="css/styles.css?v=5" />
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -24,26 +24,13 @@
 
   <div class="scene" id="scene">
     <div class="layer layer--film" data-depth="0.15">
-      <video class="bg-video" autoplay muted loop playsinline preload="auto"
-             poster="assets/bg-poster.jpg?v=4" aria-hidden="true">
-        <source src="assets/bg-mobile.webm?v=4" type="video/webm" media="(max-width: 640px)" />
-        <source src="assets/bg-mobile.mp4?v=4" type="video/mp4" media="(max-width: 640px)" />
-        <source src="assets/bg.webm?v=4" type="video/webm" />
-        <source src="assets/bg.mp4?v=4" type="video/mp4" />
-      </video>
+      <img class="bg-image" src="hyperframes/assets/golden-hour-court.png" alt="" fetchpriority="high" />
     </div>
     <div class="layer layer--scrim" data-depth="0.15"></div>
-    <svg class="layer layer--court" data-depth="0.35" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <g fill="none" stroke="#D4F73A" stroke-opacity="0.18" stroke-width="2">
-        <rect x="120" y="140" width="960" height="520" />
-        <line x1="120" y1="400" x2="1080" y2="400" />
-        <line x1="360" y1="140" x2="360" y2="660" />
-        <line x1="840" y1="140" x2="840" y2="660" />
-        <line x1="360" y1="270" x2="840" y2="270" />
-        <line x1="360" y1="530" x2="840" y2="530" />
-      </g>
-    </svg>
-    <div class="layer layer--back-glass glass glass--strong" data-depth="0.55" aria-hidden="true"></div>
+    <div class="pickleball-stage" id="pickleballStage" aria-hidden="true">
+      <div class="pickleball-fallback"></div>
+      <canvas id="pickleballCanvas"></canvas>
+    </div>
   </div>
 
   <main id="main">
@@ -76,8 +63,8 @@
         </article>
         <article class="card glass reveal" data-tilt>
           <p class="micro">Where</p>
-          <p class="card__value">Venue to be announced</p>
-          <p class="card__line">Address shared with registrants.</p>
+          <p class="card__value">Better Days Coffee</p>
+          <p class="card__line">Luna St., Christian Village, Aplaya, Digos City, Davao del Sur 8002. <a href="https://www.google.com/maps/search/?api=1&query=Better+Days+Coffee+Luna+St+Aplaya+Digos+City" target="_blank" rel="noopener">Open in Maps</a></p>
         </article>
         <article class="card glass reveal" data-tilt>
           <p class="micro">Who</p>
@@ -157,6 +144,7 @@
   <script src="js/config.js?v=6"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="js/main.js?v=4"></script>
+  <script src="js/main.js?v=5"></script>
+  <script type="module" src="js/pickleball-scroll.js?v=1"></script>
 </body>
 </html>

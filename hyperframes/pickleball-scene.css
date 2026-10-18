@@ -1,0 +1,11 @@
+* { box-sizing: border-box; }
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #315b5b; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; }
+.clip { position: absolute; inset: 0; overflow: hidden; }
+.scene-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 68%; }
+.scene-scrim { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(7, 23, 24, .84), rgba(7, 23, 24, .08)); }
+.scene-ball { position: absolute; right: 8%; top: 24%; width: 620px; height: 620px; filter: drop-shadow(0 35px 38px rgba(4, 20, 12, .4)); }
+.scene-ball canvas { display: block; width: 100%; height: 100%; }
+body.mobile .scene-photo { object-position: center 52%; }
+body.mobile .scene-scrim { background: linear-gradient(180deg, rgba(7, 23, 24, .15), rgba(7, 23, 24, .6)); }
+body.mobile .scene-ball { width: 490px; height: 490px; right: -4%; top: 16%; }
