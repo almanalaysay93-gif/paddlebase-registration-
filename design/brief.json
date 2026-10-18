@@ -1,0 +1,23 @@
+{
+  "project": "Paddlebase registration",
+  "event": {"name": "Paddlebase registration", "datetime": "2026-10-18T14:00:00+08:00"},
+  "goal": "One-page event registration site; demo for paddlebase.org",
+  "audience": "Pickleball court owners and operators in Southern Mindanao",
+  "form_fields": ["name", "venue_name", "courts_count", "rates", "email", "phone"],
+  "stack": "Static HTML/CSS/JS, GSAP, CSS 3D, backdrop-filter; Google Apps Script + Google Sheet backend",
+  "visualStyle": {"primary": "glassmorphism + 3D parallax", "secondary": "Apple-fluid motion, aggressive transitions", "requested": true},
+  "palette_source": "https://www.paddlebase.org/ (live CSS in design/paddlebase-live.css)",
+  "palette": {"ink": "#111A16", "ink_alt": "#0F1512", "lime": "#D4F73A", "lime_alt": "#C6F032", "orange": "#FF5722", "cream": "#F6F5EE", "green": "#1F6E43", "green_dark": "#2A3B32"},
+  "fonts": ["Inter", "Plus Jakarta Sans", "Archivo"],
+  "background": "Looping HyperFrames composition, MP4 + WebM, poster fallback",
+  "reduced_motion": "Disable parallax, aggressive transitions, and video; keep poster and fades",
+  "optionalAgents": {
+    "remotion-agent": {"requested": false, "needed": false, "reason": "HyperFrames is the single renderer (user choice)"},
+    "hairline-agent": {"requested": false, "needed": false, "reason": "No interactive figure requested"},
+    "motionmaxxing-agent": {"requested": false, "needed": false, "reason": "HyperFrames is the single renderer"},
+    "opus5-videos-agent": {"requested": false, "needed": false, "reason": "User asked for Opus 5.5 as the design model, not the video prompt catalog"},
+    "ui-ux-pro-max-agent": {"requested": true, "needed": true, "reason": "UI-containing work"}
+  },
+  "design_model": "claude-opus-5-5",
+  "design_doc": "docs/plans/2026-10-18-paddlebase-registration-design.md (in ALAi)"
+}

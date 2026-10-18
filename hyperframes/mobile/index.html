@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1350" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ink: #0f1512;
+        --ink-2: #111a16;
+        --lime: #d4f73a;
+        --orange: #ff5722;
+        --cream: #f6f5ee;
+        --green: #1f6e43;
+        --green-edge: #2a3b32;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1350px;
+        overflow: hidden;
+        background: var(--ink);
+      }
+      /* 4:5 phone crop: same scene as index.html, scaled 1.25x and centred on the kitchen zone. */
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1350px;
+        overflow: hidden;
+        background: var(--ink);
+      }
+      .clip {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+      .ground {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 60%, var(--ink) 100%);
+      }
+      .haze {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 280px;
+        height: 300px;
+        background: radial-gradient(ellipse at 50% 50%, rgba(246, 245, 238, 0.07), transparent 70%);
+      }
+      .stage {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+        perspective: 1400px;
+        perspective-origin: 50% 50%;
+        transform-origin: 0 0;
+        transform-style: preserve-3d;
+        transform: translate(-660px, -75px) scale(1.25);
+      }
+      .cam {
+        position: absolute;
+        inset: 0;
+        transform-style: preserve-3d;
+      }
+      .court {
+        position: absolute;
+        left: 360px;
+        top: -10px;
+        width: 1200px;
+        height: 1100px;
+        background: radial-gradient(ellipse at 50% 50%, var(--green) 0%, var(--green-edge) 78%);
+        transform: rotateX(58deg) scale(1.15);
+        transform-origin: 50% 50%;
+      }
+      .topfade {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 620px;
+        background: linear-gradient(180deg, var(--ink) 0%, var(--ink) 45%, rgba(15, 21, 18, 0) 100%);
+        pointer-events: none;
+      }
+      .court svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .pulse {
+        position: absolute;
+        left: 0;
+        top: 684px;
+        width: 520px;
+        height: 8px;
+        background: linear-gradient(90deg, transparent, var(--lime) 50%, transparent);
+        box-shadow: 0 0 36px var(--lime);
+        opacity: 1;
+      }
+      .ball {
+        position: absolute;
+        left: -17px;
+        top: -17px;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 35%, #ffb59a, var(--orange) 55%, #b93a12 100%);
+        box-shadow: 0 0 40px rgba(255, 87, 34, 0.45);
+      }
+      .shadow {
+        position: absolute;
+        left: -40px;
+        top: 740px;
+        width: 80px;
+        height: 20px;
+        border-radius: 50%;
+        background: #050a08;
+        filter: blur(3px);
+      }
+      .bokeh {
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(246, 245, 238, 0.09), transparent 70%);
+        filter: blur(6px);
+      }
+      .grain {
+        position: absolute;
+        left: -40px;
+        top: -40px;
+        width: 2000px;
+        height: 1160px;
+        opacity: 0.035;
+        mix-blend-mode: overlay;
+        pointer-events: none;
+      }
+      .vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at center, transparent 45%, var(--ink) 100%);
+        opacity: 0.9;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="12" data-width="1080" data-height="1350">
+      <div id="scene" class="clip" data-start="0" data-duration="12" data-track-index="0">
+        <div class="ground"></div>
+        <div class="haze" id="haze"></div>
+        <div class="stage" id="stage">
+          <div class="cam" id="cam">
+            <div class="court" data-layout-allow-overflow>
+              <svg viewBox="0 0 1200 1100" aria-hidden="true">
+                <defs>
+                  <pattern id="mesh" width="10" height="10" patternUnits="userSpaceOnUse">
+                    <path d="M0 0H10M0 0V10" stroke="#F6F5EE" stroke-opacity="0.5" stroke-width="1" fill="none" />
+                  </pattern>
+                </defs>
+                <g fill="none" stroke="#D4F73A" stroke-opacity="0.5" stroke-width="4">
+                  <rect x="60" y="60" width="1080" height="980" />
+                  <line x1="60" y1="350" x2="1140" y2="350" stroke-opacity="0.45" />
+                  <line x1="60" y1="750" x2="1140" y2="750" stroke-opacity="0.45" />
+                  <line x1="600" y1="60" x2="600" y2="350" />
+                  <line x1="600" y1="750" x2="600" y2="1040" />
+                </g>
+                <rect x="60" y="540" width="1080" height="20" fill="url(#mesh)" opacity="0.25" />
+                <line x1="60" y1="550" x2="1140" y2="550" stroke="#F6F5EE" stroke-opacity="0.35" stroke-width="3" />
+              </svg>
+            </div>
+            <div class="pulse" id="pulse" data-layout-allow-overflow></div>
+          </div>
+          <div class="shadow" id="shadow"></div>
+          <div class="ball" id="ball"></div>
+        </div>
+        <div class="bokeh" style="left: 180px; top: 120px"></div>
+        <div class="bokeh" style="left: 520px; top: 60px"></div>
+        <div class="bokeh" style="left: 900px; top: 200px"></div>
+        <div class="bokeh" style="left: 1260px; top: 90px"></div>
+        <div class="bokeh" style="left: 1560px; top: 260px"></div>
+        <div class="bokeh" style="left: 1100px; top: 420px"></div>
+        <svg class="grain" id="grain" viewBox="0 0 2000 1160" aria-hidden="true">
+          <filter id="gr" x="0" y="0" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="10" stitchTiles="stitch" />
+            <feColorMatrix type="saturate" values="0" />
+          </filter>
+          <rect width="2000" height="1160" filter="url(#gr)" />
+        </svg>
+        <div class="topfade"></div>
+        <div class="vignette"></div>
+      </div>
+    </div>
+    <script src="../bg.js"></script>
+    <script>
+      var tl = gsap.timeline({ paused: true });
+      buildDusk(tl);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,95 @@
+{
+  "name": "Paddlebase registration / Night Court Glass",
+  "source": "paddlebase.org live CSS (design/paddlebase-live.css) + brief.json",
+  "color": {
+    "raw": {
+      "ink": "#111A16", "ink_alt": "#0F1512", "lime": "#D4F73A", "lime_alt": "#C6F032",
+      "orange": "#FF5722", "cream": "#F6F5EE", "green": "#1F6E43", "green_dark": "#2A3B32",
+      "mist": "#A9B3AD"
+    },
+    "roles": {
+      "bg.base": "#0F1512",
+      "bg.raised": "#111A16",
+      "surface.glass": "rgba(17,26,22,0.55)",
+      "surface.glass-strong": "rgba(17,26,22,0.72)",
+      "surface.court": "#1F6E43",
+      "surface.court-deep": "#2A3B32",
+      "text.primary": "#F6F5EE",
+      "text.secondary": "#A9B3AD",
+      "text.on-lime": "#111A16",
+      "accent.action": "#D4F73A",
+      "accent.action-hover": "#C6F032",
+      "accent.signal": "#FF5722",
+      "state.error": "#FF5722",
+      "state.error-text": "#FF8A65",
+      "state.success": "#D4F73A",
+      "focus.ring": "#D4F73A",
+      "focus.ring-offset": "#0F1512",
+      "border.glass": "rgba(246,245,238,0.14)",
+      "border.glass-hi": "rgba(246,245,238,0.32)",
+      "border.input": "rgba(246,245,238,0.24)"
+    },
+    "rules": [
+      "Lime is the only action color. One lime CTA per viewport.",
+      "Orange is a signal: errors, the live date tick, the ball in the video. Never a button fill with white text (3.16:1).",
+      "Text on glass is cream or mist only; glass tint is never lighter than 0.55 ink."
+    ]
+  },
+  "type": {
+    "families": {
+      "display": "\"Plus Jakarta Sans\", Inter, system-ui, sans-serif",
+      "body": "Inter, system-ui, sans-serif",
+      "scoreboard": "Archivo, system-ui, sans-serif"
+    },
+    "usage": {
+      "display": "Plus Jakarta Sans 800, headlines h1/h2",
+      "body": "Inter 400/500/600, copy, labels, inputs",
+      "scoreboard": "Archivo 700, tabular-nums, date/time chips, court counts, section numbers"
+    },
+    "scale_px": {
+      "display-xl": "clamp(44px, 9vw, 120px) / 0.95 / -0.035em",
+      "display-l": "clamp(34px, 5.5vw, 64px) / 1.02 / -0.03em",
+      "h3": "22px / 1.2 / -0.01em",
+      "body-l": "18px / 1.55",
+      "body": "16px / 1.55",
+      "label": "14px / 1.3 / 600",
+      "micro": "12px / 1.3 / 0.16em uppercase (Archivo)"
+    },
+    "min_input_font_px": 16
+  },
+  "space_px": { "1": 4, "2": 8, "3": 12, "4": 16, "5": 24, "6": 32, "7": 48, "8": 64, "9": 96, "10": 144 },
+  "gutter": "clamp(16px, 3.5vw, 40px)",
+  "radius_px": { "input": 12, "button": 14, "card": 24, "panel": 32, "pill": 999 },
+  "blur_px": { "glass-sm": 12, "glass": 20, "glass-strong": 28, "wipe-peak": 24 },
+  "saturate": { "glass": 1.4 },
+  "shadow": {
+    "glass": "0 1px 0 0 rgba(246,245,238,0.10) inset, 0 30px 60px -30px rgba(0,0,0,0.65)",
+    "glass-lift": "0 1px 0 0 rgba(246,245,238,0.16) inset, 0 50px 90px -40px rgba(0,0,0,0.75)",
+    "lime-glow": "0 0 0 1px rgba(212,247,58,0.6), 0 12px 32px -12px rgba(212,247,58,0.45)"
+  },
+  "easing": {
+    "fluid": "cubic-bezier(0.23, 1, 0.32, 1)",
+    "settle": "cubic-bezier(0.2, 0.6, 0.2, 1)",
+    "strike": "cubic-bezier(0.7, 0, 0.84, 0)",
+    "snap": "cubic-bezier(0.16, 1, 0.3, 1)",
+    "gsap": { "fluid": "expo.out", "settle": "power3.out", "strike": "power4.in", "snap": "expo.inOut" },
+    "banned": ["elastic.*", "bounce.*", "back.out > 1.2", "linear for UI"]
+  },
+  "duration_ms": { "micro": 140, "short": 240, "base": 420, "long": 720, "transition": 900, "hero-intro": 1400 },
+  "stagger_ms": { "tight": 40, "base": 70, "loose": 110 },
+  "depth": {
+    "perspective_px": 1400,
+    "layers": [
+      { "id": "z0-film", "translateZ": -600, "parallax": 0.15, "content": "HyperFrames video / poster" },
+      { "id": "z1-scrim", "translateZ": -400, "parallax": 0.15, "content": "ink scrim, vignette" },
+      { "id": "z2-court-lines", "translateZ": -240, "parallax": 0.35, "content": "SVG court geometry, lime 0.18" },
+      { "id": "z3-back-glass", "translateZ": -120, "parallax": 0.55, "content": "large blurred glass slab" },
+      { "id": "z4-content", "translateZ": 0, "parallax": 1.0, "content": "headline, date chip, CTA" },
+      { "id": "z5-front-glass", "translateZ": 80, "parallax": 1.25, "content": "small glass shard / ball token" }
+    ],
+    "tilt_max_deg": 8,
+    "z_index": { "film": 0, "scene": 1, "content": 10, "header": 50, "toast": 80, "skip": 100 }
+  },
+  "breakpoints_px": { "phone": 375, "tablet": 768, "desktop": 1024, "wide": 1440 },
+  "touch_target_px": 44
+}

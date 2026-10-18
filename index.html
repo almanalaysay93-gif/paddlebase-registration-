@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Paddlebase registration</title>
+  <meta name="description" content="Register for the Paddlebase registration event, Sunday, October 18, 2026 at 2:00 PM, Manila time." />
+  <meta name="theme-color" content="#0F1512" />
+  <meta property="og:title" content="Paddlebase registration" />
+  <meta property="og:description" content="Sunday, October 18, 2026 · 2:00 PM. Register your venue." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header glass" id="siteHeader">
+    <a class="brand" href="#top">PaddleBase</a>
+    <a class="ghost-btn header-cta" href="#register">Register</a>
+  </header>
+
+  <div class="scene" id="scene">
+    <div class="layer layer--film" data-depth="0.15">
+      <video class="bg-video" autoplay muted loop playsinline preload="auto"
+             poster="assets/bg-poster.jpg" aria-hidden="true">
+        <source src="assets/bg-mobile.webm" type="video/webm" media="(max-width: 640px)" />
+        <source src="assets/bg-mobile.mp4" type="video/mp4" media="(max-width: 640px)" />
+        <source src="assets/bg.webm" type="video/webm" />
+        <source src="assets/bg.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="layer layer--scrim" data-depth="0.15"></div>
+    <svg class="layer layer--court" data-depth="0.35" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g fill="none" stroke="#D4F73A" stroke-opacity="0.18" stroke-width="2">
+        <rect x="120" y="140" width="960" height="520" />
+        <line x1="120" y1="400" x2="1080" y2="400" />
+        <line x1="360" y1="140" x2="360" y2="660" />
+        <line x1="840" y1="140" x2="840" y2="660" />
+        <line x1="360" y1="270" x2="840" y2="270" />
+        <line x1="360" y1="530" x2="840" y2="530" />
+      </g>
+    </svg>
+    <div class="layer layer--back-glass glass glass--strong" data-depth="0.55" aria-hidden="true"></div>
+  </div>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero__content layer layer--content" data-depth="1">
+        <p class="kicker">Paddlebase · Operators meetup</p>
+        <h1 class="display-xl">Paddlebase registration</h1>
+        <p class="lead">An afternoon for court owners and operators across Southern Mindanao. Bring your venue; leave with a network.</p>
+
+        <div class="scoreboard glass">
+          <time datetime="2026-10-18T14:00:00+08:00" class="scoreboard__date">Sunday, October 18, 2026 · 2:00 PM</time>
+          <span class="scoreboard__tz">Asia/Manila (GMT+8)</span>
+        </div>
+
+        <div class="hero__actions">
+          <a class="btn btn--lime" href="#register">Register</a>
+          <span class="reassure">Free · takes under a minute</span>
+        </div>
+      </div>
+      <div class="layer layer--shard" data-depth="1.25" aria-hidden="true"></div>
+    </section>
+
+    <section class="details" id="details">
+      <h2 class="display-l reveal">What to expect</h2>
+      <div class="cards">
+        <article class="card glass reveal" data-tilt>
+          <p class="micro">When</p>
+          <p class="card__value">Sun, Oct 18 · 2:00 PM</p>
+          <p class="card__line">Asia/Manila time. Doors open 1:30 PM.</p>
+        </article>
+        <article class="card glass reveal" data-tilt>
+          <p class="micro">Where</p>
+          <p class="card__value">Venue to be announced</p>
+          <p class="card__line">Address shared with registrants.</p>
+        </article>
+        <article class="card glass reveal" data-tilt>
+          <p class="micro">Who</p>
+          <p class="card__value">Court owners &amp; operators</p>
+          <p class="card__line">List your courts on PaddleBase and meet the team.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="register" id="register">
+      <div class="panel glass glass--strong reveal">
+        <h2 class="display-l">Save your spot</h2>
+        <p class="panel__sub">We'll email a confirmation right away.</p>
+
+        <div class="banner" id="banner" role="alert" hidden></div>
+
+        <form id="regForm" novalidate>
+          <div class="grid">
+            <div class="field">
+              <label for="name">Full name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required aria-describedby="name-err" />
+              <p class="err" id="name-err" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label for="venue_name">Venue name</label>
+              <input id="venue_name" name="venue_name" type="text" autocomplete="organization" required aria-describedby="venue_name-err" />
+              <p class="err" id="venue_name-err" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label for="courts_count">Number of courts</label>
+              <input id="courts_count" name="courts_count" type="text" inputmode="numeric" required aria-describedby="courts_count-err" />
+              <p class="err" id="courts_count-err" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label for="rates">Court rate (₱ per hour)</label>
+              <input id="rates" name="rates" type="text" inputmode="decimal" required aria-describedby="rates-err" />
+              <p class="err" id="rates-err" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required aria-describedby="email-err" />
+              <p class="err" id="email-err" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label for="phone">Mobile number</label>
+              <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required aria-describedby="phone-err" />
+              <p class="err" id="phone-err" aria-live="polite"></p>
+            </div>
+          </div>
+
+          <!-- Honeypot: hidden from people, filled in by bots -->
+          <div class="hp" aria-hidden="true">
+            <label for="website">Leave this field empty</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <button class="btn btn--lime btn--block" type="submit" id="submitBtn">
+            <span class="btn__label">Register</span>
+            <span class="btn__bar" aria-hidden="true"></span>
+          </button>
+        </form>
+
+        <div class="success" id="success" hidden>
+          <p class="success__mark" aria-hidden="true">✓</p>
+          <h3>You're registered.</h3>
+          <p>Check your inbox for a welcome email from PaddleBase.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 PaddleBase · <a href="https://www.paddlebase.org/">paddlebase.org</a></p>
+    <a href="#top">Back to top</a>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

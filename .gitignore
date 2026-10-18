@@ -1,0 +1,11 @@
+# HyperFrames working output (rebuild with `npm run render`)
+hyperframes/renders/
+hyperframes/.hyperframes/
+
+# Dependencies
+node_modules/
+
+# Logs and OS noise
+*.log
+.DS_Store
+Thumbs.db
