@@ -1,8 +1,7 @@
-import { createPickleball } from '../hyperframes/assets/pickleball-3d.js';
+import { createPickleball } from '../hyperframes/assets/pickleball-3d.js?v=3';
 
 const stage = document.getElementById('pickleballStage');
 const canvas = document.getElementById('pickleballCanvas');
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 if (stage && canvas) {
   let player = null;
@@ -13,7 +12,8 @@ if (stage && canvas) {
     canvas.hidden = true;
   }
 
-  if (!reducedMotion) {
+  // The spin is the hero's centerpiece, so it runs regardless of reduced motion.
+  {
     let target = 0;
     let current = 0;
     let frame = 0;
