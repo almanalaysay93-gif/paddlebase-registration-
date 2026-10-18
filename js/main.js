@@ -164,9 +164,10 @@
     current.y += (pointer.y - current.y) * 0.08;
     layers.forEach(function (el) {
       var d = parseFloat(el.getAttribute('data-depth')) || 0;
-      var tx = current.x * 12 * d;
-      var ty = current.y * 12 * d - scrollY * 0.12 * d;
-      el.style.transform = 'translate3d(' + tx.toFixed(2) + 'px,' + ty.toFixed(2) + 'px,0)';
+      var tx = current.x * 26 * d;
+      var ty = current.y * 26 * d - scrollY * 0.12 * d;
+      var tz = (d - 0.5) * 160;
+      el.style.transform = 'translate3d(' + tx.toFixed(2) + 'px,' + ty.toFixed(2) + 'px,' + tz.toFixed(2) + 'px)';
     });
     if (Math.abs(pointer.x - current.x) > 0.001 || Math.abs(pointer.y - current.y) > 0.001) {
       requestAnimationFrame(render);
