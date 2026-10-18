@@ -19,7 +19,8 @@ Sheet: https://docs.google.com/spreadsheets/d/1AWQ3M5TOaa_3PukHmJK9Fb0NzZanngPNK
 
 The venue owner's welcome email and the site owner's alert include the poster and links to `paddlebase.org` and `paddlebaseowner.org`.
 Publish `assets/welcome-to-paddlebase.png` with the site before you run the updated script.
-Run `processPending` once in the Apps Script editor to authorize image download access.
+Run `checkPosterAccess` once in the Apps Script editor to authorize image download access.
+It returns `200` when the poster is available and sends no email.
 
 ## 3. Create the sheet tab and trigger
 

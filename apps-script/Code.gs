@@ -129,6 +129,11 @@ function setupSheet() {
   return 'Sheet ready';
 }
 
+/** Checks poster access and authorizes URL Fetch without sending email. */
+function checkPosterAccess() {
+  return UrlFetchApp.fetch(WELCOME_POSTER_URL).getResponseCode();
+}
+
 /** Creates a time-driven trigger that runs processPending every minute. Run once. */
 function installTrigger() {
   ScriptApp.getProjectTriggers().forEach(function (t) {
