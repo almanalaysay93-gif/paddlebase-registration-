@@ -6,7 +6,7 @@
  *   timestamp | name | venue_name | courts_count | rates | email | phone | source | email_status
  *
  * Script properties (Project Settings > Script properties):
- *   OWNER_EMAIL  - address that receives the "new registration" alert
+ *   OWNER_EMAIL  - address that receives the "new registration" alert (defaults to the script owner)
  *   EVENT_NAME   - optional, default "Paddlebase registration"
  *   EVENT_WHEN   - optional, default "Sunday, October 18, 2026 at 2:00 PM (Manila time)"
  */
@@ -71,7 +71,8 @@ function processPending() {
 
   var rows = sheet.getRange(2, 1, last - 1, HEADERS.length).getValues();
   var props = PropertiesService.getScriptProperties();
-  var owner = props.getProperty('OWNER_EMAIL');
+  // Falls back to the script owner's address so the alert is never silently skipped.
+  var owner = props.getProperty('OWNER_EMAIL') || Session.getEffectiveUser().getEmail();
   var eventName = props.getProperty('EVENT_NAME') || 'Paddlebase registration';
   var eventWhen = props.getProperty('EVENT_WHEN') || 'Sunday, October 18, 2026 at 2:00 PM (Manila time)';
 
