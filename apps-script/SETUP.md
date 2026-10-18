@@ -17,6 +17,10 @@ Sheet: https://docs.google.com/spreadsheets/d/1AWQ3M5TOaa_3PukHmJK9Fb0NzZanngPNK
    - Value: the address that should receive new-registration alerts
 3. Optional: add `EVENT_NAME` and `EVENT_WHEN` to change the event text in the emails.
 
+The venue owner's welcome email and the site owner's alert include the poster and links to `paddlebase.org` and `paddlebaseowner.org`.
+Publish `assets/welcome-to-paddlebase.png` with the site before you run the updated script.
+Run `processPending` once in the Apps Script editor to authorize image download access.
+
 ## 3. Create the sheet tab and trigger
 
 1. In the editor, select the function **setupSheet** and click **Run**. Approve the permissions prompt.
@@ -30,6 +34,8 @@ Sheet: https://docs.google.com/spreadsheets/d/1AWQ3M5TOaa_3PukHmJK9Fb0NzZanngPNK
 3. Execute as: **Me**. Who has access: **Anyone**.
 4. Click **Deploy**. Copy the **Web app URL** (ends in `/exec`).
 5. Send that URL back to me. I'll put it into the site config.
+
+If the web app already exists, use **Deploy > Manage deployments > Edit** and select a new version.
 
 ## Notes
 

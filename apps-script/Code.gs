@@ -13,6 +13,7 @@
 
 var SHEET_NAME = 'Registrations';
 var HEADERS = ['timestamp', 'name', 'venue_name', 'courts_count', 'rates', 'email', 'phone', 'source', 'email_status'];
+var WELCOME_POSTER_URL = 'https://almanalaysay93-gif.github.io/paddlebase-registration-/assets/welcome-to-paddlebase.png';
 
 // ---------- Web app entry point ----------
 
@@ -87,17 +88,31 @@ function processPending() {
     var rowNumber = i + 2;
 
     try {
+      var poster = UrlFetchApp.fetch(WELCOME_POSTER_URL).getBlob().setName('Welcome to Paddlebase.png');
       if (owner) {
         MailApp.sendEmail({
           to: owner,
           subject: 'New registration: ' + reg.venue_name,
-          htmlBody: ownerEmailHtml_(reg, eventName)
+          body: 'New registration for ' + eventName + '\n' +
+            'Name: ' + reg.name + '\nVenue: ' + reg.venue_name + '\n' +
+            'Paddlebase: https://paddlebase.org/\n' +
+            'Owner portal: https://paddlebaseowner.org/',
+          htmlBody: ownerEmailHtml_(reg, eventName),
+          inlineImages: { welcomePoster: poster },
+          attachments: [poster]
         });
       }
       MailApp.sendEmail({
         to: reg.email,
         subject: 'Welcome to ' + eventName + '!',
-        htmlBody: welcomeEmailHtml_(reg, eventName, eventWhen)
+        body: 'Welcome, ' + reg.name + '!\n' +
+          'You are registered for ' + eventName + '.\n' +
+          'Event: ' + eventWhen + '\n' +
+          'Paddlebase: https://paddlebase.org/\n' +
+          'Owner portal: https://paddlebaseowner.org/',
+        htmlBody: welcomeEmailHtml_(reg, eventName, eventWhen),
+        inlineImages: { welcomePoster: poster },
+        attachments: [poster]
       });
       sheet.getRange(rowNumber, 9).setValue('sent');
     } catch (err) {
@@ -216,12 +231,17 @@ function esc_(s) {
 }
 
 function ownerEmailHtml_(reg, eventName) {
-  return '<div style="font-family:Arial,sans-serif;color:#111A16">' +
+  return '<div style="font-family:Arial,sans-serif;color:#111A16;max-width:560px">' +
     '<h2 style="color:#111A16">New registration for ' + esc_(eventName) + '</h2>' +
     '<table cellpadding="6" style="border-collapse:collapse">' +
     row_('Name', reg.name) + row_('Venue', reg.venue_name) + row_('Courts', reg.courts_count) +
     row_('Rate (PHP/hr)', reg.rates) + row_('Email', reg.email) + row_('Phone', reg.phone) +
-    '</table></div>';
+    '</table>' +
+    '<p><a href="https://paddlebase.org/">Paddlebase</a> | ' +
+    '<a href="https://paddlebaseowner.org/">Paddlebase Owner</a></p>' +
+    '<img src="cid:welcomePoster" alt="Welcome to Paddlebase" ' +
+    'style="display:block;width:100%;max-width:560px;height:auto" />' +
+    '</div>';
 }
 
 function welcomeEmailHtml_(reg, eventName, eventWhen) {
@@ -232,6 +252,10 @@ function welcomeEmailHtml_(reg, eventName, eventWhen) {
     '<p>Event: <strong>' + esc_(eventWhen) + '</strong></p>' +
     '<p>We have your venue, <strong>' + esc_(reg.venue_name) + '</strong>, with ' + esc_(reg.courts_count) +
     ' court(s) listed at PHP ' + esc_(reg.rates) + ' per hour. We will be in touch with more details.</p>' +
+    '<p><a href="https://paddlebase.org/">Paddlebase</a> | ' +
+    '<a href="https://paddlebaseowner.org/">Paddlebase Owner</a></p>' +
+    '<img src="cid:welcomePoster" alt="Welcome to Paddlebase" ' +
+    'style="display:block;width:100%;max-width:560px;height:auto" />' +
     '<p style="color:#5f6b64;font-size:12px">You received this email because you registered on the Paddlebase registration page.</p>' +
     '</div>';
 }
