@@ -1,22 +1,10 @@
 /*
- * Dusk Court background loop (12s, 30fps).
+ * Paddlebase court loop (12s, 30fps), after the "Welcome to Paddlebase" poster.
  * Pure function of time: every tween is closed over DUR, so frame 360 == frame 0.
- * No Math.random, no clocks. Grain is a seeded table.
+ * Parallax: one shared camera sway, applied to each [data-depth] layer scaled by depth.
  */
 (function () {
   var DUR = 12;
-  var SEED = 0x0a18;
-
-  function rng(seed) {
-    var s = seed >>> 0;
-    return function () {
-      s = (s + 0x6d2b79f5) >>> 0;
-      var t = s;
-      t = Math.imul(t ^ (t >>> 15), t | 1);
-      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-    };
-  }
 
   function q(sel) {
     return document.querySelector(sel);
@@ -26,49 +14,33 @@
     return Array.prototype.slice.call(document.querySelectorAll(sel));
   }
 
-  window.buildDusk = function (tl) {
-    var rand = rng(SEED);
-    var cam = q('#cam');
-    var ball = q('#ball');
-    var shadow = q('#shadow');
-    var pulse = q('#pulse');
-    var grain = q('#grain');
-    var haze = q('#haze');
-
-    // 1. Camera dolly: closed ellipse (x +-40px, y +-12px), back at 0,0 at 12s.
-    tl.to(cam, { x: 40, y: 12, duration: 3, ease: 'sine.inOut' }, 0)
-      .to(cam, { x: -40, y: -12, duration: 6, ease: 'sine.inOut' }, 3)
-      .to(cam, { x: 0, y: 0, duration: 3, ease: 'sine.inOut' }, 9);
-
-    // 2. Lime light pulse runs the kitchen line once per loop. Off-screen at both seam points.
-    tl.fromTo(pulse, { x: -520 }, { x: 1940, duration: DUR, ease: 'none' }, 0);
-
-    // 3. Dink arc over the net, 4s to 7s. Ball and shadow are hidden at the seam.
-    tl.set(ball, { x: 560, y: 640, opacity: 0 }, 0);
-    tl.set(shadow, { x: 560, opacity: 0 }, 0);
-    tl.to(ball, { opacity: 1, duration: 0.25 }, 4)
-      .to(ball, { x: 1360, duration: 3, ease: 'none' }, 4)
-      .to(ball, { y: 380, duration: 1.5, ease: 'sine.out' }, 4)
-      .to(ball, { y: 640, duration: 1.5, ease: 'sine.in' }, 5.5)
-      .to(ball, { opacity: 0, duration: 0.3 }, 6.7);
-    tl.to(shadow, { opacity: 0.5, duration: 0.25 }, 4)
-      .to(shadow, { x: 1360, duration: 3, ease: 'none' }, 4)
-      .to(shadow, { opacity: 0, duration: 0.3 }, 6.7);
-
-    // 4. Floodlight bokeh: slow closed drift. Yoyo repeats fill exactly 12s.
-    all('.bokeh').forEach(function (b, i) {
-      var amp = 24 + (i % 3) * 10;
-      var sign = i % 2 ? 1 : -1;
-      tl.to(b, { x: sign * amp, duration: DUR / 2, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0);
-      tl.to(b, { y: -sign * amp * 0.6, duration: DUR / 4, ease: 'sine.inOut', yoyo: true, repeat: 3 }, 0);
+  window.buildCourt = function (tl) {
+    // 1. Camera sway: closed figure-eight. Deeper layers move more, so planes separate.
+    all('.layer').forEach(function (layer) {
+      var d = parseFloat(layer.getAttribute('data-depth')) || 0;
+      var ax = 14 * d;
+      var ay = 5 * d;
+      tl.fromTo(layer, { x: -ax }, { x: ax, duration: DUR / 2, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0);
+      tl.fromTo(layer, { y: 0 }, { y: ay, duration: DUR / 4, ease: 'sine.inOut', yoyo: true, repeat: 3 }, 0);
     });
 
-    // 5. Court haze breathes once per loop.
-    tl.fromTo(haze, { opacity: 0.6 }, { opacity: 1, duration: DUR / 2, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0);
+    // 2. Lime stripes breathe and glide along their angle.
+    tl.fromTo('.stripe--a', { xPercent: -3 }, { xPercent: 3, duration: DUR / 2, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0);
+    tl.fromTo('.stripe--c', { opacity: 0.5 }, { opacity: 1, duration: DUR / 2, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0);
 
-    // 6. Grain: 10 Hz seeded offsets across 12s. Index 0 repeats at the seam, so the loop is seamless.
-    for (var n = 0; n < 120; n++) {
-      tl.set(grain, { x: Math.round(rand() * 12 - 6), y: Math.round(rand() * 12 - 6) }, n / 10);
-    }
+    // 3. Paddle floats and rocks, like it is leaning and settling.
+    tl.fromTo('#paddle', { y: 0, rotation: -2 }, { y: -26, rotation: 2, duration: DUR / 4, ease: 'sine.inOut', yoyo: true, repeat: 3 }, 0);
+    tl.fromTo('#paddleShadow', { scaleX: 1, opacity: 0.9 }, { scaleX: 0.92, opacity: 0.6, duration: DUR / 4, ease: 'sine.inOut', yoyo: true, repeat: 3 }, 0);
+
+    // 4. Ball: two soft bounces per loop, holes spin a full turn.
+    tl.fromTo('#ball', { y: 0 }, { y: -120, duration: DUR / 6, ease: 'power2.out', yoyo: true, repeat: 5 }, 0);
+    tl.fromTo('#ballShadow', { scale: 1, opacity: 0.9 }, { scale: 0.6, opacity: 0.35, duration: DUR / 6, ease: 'power2.out', yoyo: true, repeat: 5 }, 0);
+    tl.fromTo('#holes', { rotation: 0, svgOrigin: '130 130' }, { rotation: 360, svgOrigin: '130 130', duration: DUR, ease: 'none' }, 0);
+
+    // 5. Foreground flares drift.
+    all('.flare').forEach(function (f, i) {
+      var s = i ? -1 : 1;
+      tl.fromTo(f, { x: -30 * s, opacity: 0.6 }, { x: 30 * s, opacity: 1, duration: DUR / 2, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0);
+    });
   };
 })();

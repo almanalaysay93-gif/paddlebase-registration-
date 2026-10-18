@@ -160,6 +160,8 @@ a {
 .layer--court {
   width: 100%;
   height: 100%;
+  /* the background video now draws the court, net, paddle and ball */
+  display: none;
 }
 
 .layer--back-glass {

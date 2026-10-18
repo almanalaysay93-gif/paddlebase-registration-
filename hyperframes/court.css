@@ -1,0 +1,44 @@
+/* Shared scene styles for the Paddlebase court loop (16:9 and 4:5). Stage is always 1920x1080. */
+:root {
+  --ink: #0f1512;
+  --deep: #0b3d22;
+  --green: #1f6e43;
+  --court: #2b6a4a;
+  --lime: #d4f73a;
+  --lime-hot: #e8ff3a;
+  --cream: #f6f5ee;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { overflow: hidden; background: var(--deep); }
+#root { position: relative; overflow: hidden; background: var(--deep); }
+.clip { position: absolute; inset: 0; overflow: hidden; }
+.stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+.layer { position: absolute; inset: 0; will-change: transform; }
+
+/* depth 0: backdrop */
+.backdrop { position: absolute; inset: -60px; background: radial-gradient(120% 90% at 50% 20%, #13552f 0%, var(--deep) 55%, #072714 100%); }
+
+/* depth 1: lime diagonal stripes */
+.stripe { position: absolute; height: 150px; width: 2600px; left: -340px; transform-origin: 50% 50%; }
+.stripe--a { top: 470px; background: linear-gradient(90deg, rgba(212,247,58,0) 0%, var(--lime-hot) 18%, var(--lime) 70%, rgba(212,247,58,0) 100%); transform: rotate(-24deg); }
+.stripe--b { top: 640px; height: 40px; background: linear-gradient(90deg, rgba(246,245,238,0) 10%, rgba(246,245,238,0.9) 50%, rgba(246,245,238,0) 95%); transform: rotate(-24deg); }
+.stripe--c { top: 300px; height: 110px; background: linear-gradient(90deg, rgba(212,247,58,0) 30%, rgba(212,247,58,0.55) 60%, rgba(212,247,58,0) 90%); transform: rotate(28deg); }
+
+/* depth 2: net (soft focus) */
+.net { position: absolute; left: -100px; top: 470px; width: 2120px; height: 230px; filter: blur(2.5px); opacity: 0.85; }
+
+/* depth 3: court floor */
+.floor { position: absolute; left: -200px; top: 690px; width: 2320px; height: 520px;
+  background: linear-gradient(180deg, #24573c 0%, var(--court) 35%, #1d4f35 100%); }
+.floor svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* depth 4: paddle and ball */
+.paddle { position: absolute; left: 820px; top: 230px; width: 560px; height: 760px; transform-origin: 50% 70%; }
+.paddle svg, .ball svg { width: 100%; height: 100%; overflow: visible; }
+.ball { position: absolute; left: 600px; top: 650px; width: 260px; height: 260px; transform-origin: 50% 50%; }
+.ball-shadow { position: absolute; left: 610px; top: 880px; width: 260px; height: 50px; border-radius: 50%; background: rgba(4, 20, 10, 0.75); filter: blur(10px); }
+.paddle-shadow { position: absolute; left: 900px; top: 900px; width: 620px; height: 60px; border-radius: 50%; background: rgba(4, 20, 10, 0.6); filter: blur(14px); }
+
+/* depth 5: foreground light */
+.flare { position: absolute; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(232,255,58,0.22), transparent 65%); filter: blur(8px); }
+.vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 55%, transparent 50%, rgba(5, 25, 13, 0.85) 100%); pointer-events: none; }
